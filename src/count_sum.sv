@@ -13,7 +13,7 @@ module count_sum #(parameter w = 3, parameter N = 5) (
     typedef enum logic [1:0] {
         IDLE,
         ACCUMULATE,
-        CONVERT,
+//        CONVERT,
         OUTPUT
     } state_t;
 
@@ -38,16 +38,16 @@ module count_sum #(parameter w = 3, parameter N = 5) (
             end
             ACCUMULATE: begin
                 if (count == N-1) begin
-                    next_state = CONVERT;
+                    next_state = OUTPUT;
                 end else if (s_valid && s_ready) begin
                     next_state = ACCUMULATE;
                 end
             end
-            CONVERT: begin
-                next_state = OUTPUT;
-            end
+//            CONVERT: begin
+//                next_state = OUTPUT;
+//            end
             OUTPUT: begin
-                if (m_ready) begin
+                if (m_ready || m_valid ) begin
                     next_state = IDLE;
                 end
             end
@@ -63,11 +63,11 @@ module count_sum #(parameter w = 3, parameter N = 5) (
             sum <= sum + s_data;
             ones <= sum % 10;
             tens <= sum / 10;
-            m_data[0] <= convert_to_7segment(ones);
-            m_data[1] <= convert_to_7segment(tens);
+//            m_data[0] <= convert_to_7segment(ones);
+//            m_data[1] <= convert_to_7segment(tens);
             count <= count + 1;
-        end else if (state == CONVERT) begin
-            sum <= sum; // Maintain sum value during conversion
+        end else if (state == OUTPUT) begin
+            sum <= 0; // Maintain sum value during conversion
             count <= 0; // Reset count for next accumulation
         end
     end
@@ -84,15 +84,15 @@ module count_sum #(parameter w = 3, parameter N = 5) (
 //    end
 
     // Output Seven Segment Data
-//    always_ff @(posedge clk or negedge rstn) begin
-//        if (!rstn) begin
-//            m_data[0] <= 0;
-//            m_data[1] <= 0;
-//        end else if (state == OUTPUT) begin
-//            m_data[0] <= convert_to_7segment(ones);
-//            m_data[1] <= convert_to_7segment(tens);
-//        end
-//    end
+    always_ff @(posedge clk or negedge rstn) begin
+        if (!rstn) begin
+            m_data[0] <= 0;
+            m_data[1] <= 0;
+        end else if (state == OUTPUT) begin
+            m_data[0] <= convert_to_7segment(ones);
+            m_data[1] <= convert_to_7segment(tens);
+        end
+    end
 
     // AXI Stream Handshaking
     assign s_ready = (state == IDLE) || (state == ACCUMULATE);

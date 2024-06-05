@@ -19,7 +19,7 @@ module count_sum_tb;
 
 
     initial begin
-        #10 rstn <= 0;
+        #20 rstn <= 0;
         #10 begin
             s_valid <= 1;
             s_ready <=1 ;
@@ -35,7 +35,7 @@ module count_sum_tb;
          #10 s_data<='d1;
            
          
-           
+         repeat(5)  @(posedge clk) #1;
            
           end
 //        m_ready <= 0; // Initially ready to accept output
