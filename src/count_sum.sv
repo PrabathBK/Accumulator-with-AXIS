@@ -61,6 +61,8 @@ module count_sum #(parameter w = 3, parameter N = 5) (
             count <= 0;
         end else if (state == ACCUMULATE && s_valid && s_ready) begin
             sum <= sum + s_data;
+            ones <= sum % 10;
+            tens <= sum / 10;
             count <= count + 1;
         end else if (state == CONVERT) begin
             sum <= sum; // Maintain sum value during conversion
@@ -68,16 +70,16 @@ module count_sum #(parameter w = 3, parameter N = 5) (
         end
     end
 
-    // Convert sum to Seven Segment format
-    always_ff @(posedge clk or negedge rstn) begin
-        if (!rstn) begin
-            ones <= 0;
-            tens <= 0;
-        end else if (state == CONVERT) begin
-            ones <= sum % 10;
-            tens <= sum / 10;
-        end
-    end
+//    // Convert sum to Seven Segment format
+//    always_ff @(posedge clk or negedge rstn) begin
+//        if (!rstn) begin
+//            ones <= 0;
+//            tens <= 0;
+//        end else if (state == CONVERT) begin
+//            ones <= sum % 10;
+//            tens <= sum / 10;
+//        end
+//    end
 
     // Output Seven Segment Data
     always_ff @(posedge clk or negedge rstn) begin
