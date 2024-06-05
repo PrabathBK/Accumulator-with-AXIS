@@ -63,6 +63,8 @@ module count_sum #(parameter w = 3, parameter N = 5) (
             sum <= sum + s_data;
             ones <= sum % 10;
             tens <= sum / 10;
+            m_data[0] <= convert_to_7segment(ones);
+            m_data[1] <= convert_to_7segment(tens);
             count <= count + 1;
         end else if (state == CONVERT) begin
             sum <= sum; // Maintain sum value during conversion
@@ -82,15 +84,15 @@ module count_sum #(parameter w = 3, parameter N = 5) (
 //    end
 
     // Output Seven Segment Data
-    always_ff @(posedge clk or negedge rstn) begin
-        if (!rstn) begin
-            m_data[0] <= 0;
-            m_data[1] <= 0;
-        end else if (state == OUTPUT) begin
-            m_data[0] <= convert_to_7segment(ones);
-            m_data[1] <= convert_to_7segment(tens);
-        end
-    end
+//    always_ff @(posedge clk or negedge rstn) begin
+//        if (!rstn) begin
+//            m_data[0] <= 0;
+//            m_data[1] <= 0;
+//        end else if (state == OUTPUT) begin
+//            m_data[0] <= convert_to_7segment(ones);
+//            m_data[1] <= convert_to_7segment(tens);
+//        end
+//    end
 
     // AXI Stream Handshaking
     assign s_ready = (state == IDLE) || (state == ACCUMULATE);
