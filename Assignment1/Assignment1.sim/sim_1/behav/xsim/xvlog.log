@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DVCON/VHDL/Assignment/src/count_sum.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module count_sum
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/DVCON/VHDL/Assignment/src/count_sum_tb.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module count_sum_tb
