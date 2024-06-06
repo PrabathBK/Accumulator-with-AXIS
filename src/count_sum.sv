@@ -37,7 +37,7 @@ module count_sum #(parameter w = 3, parameter N = 5) (
                 end
             end
             ACCUMULATE: begin
-                if (count == N-1) begin
+                if (count == N) begin
                     next_state = OUTPUT;
                 end else if (s_valid && s_ready) begin
                     next_state = ACCUMULATE;
@@ -63,40 +63,41 @@ module count_sum #(parameter w = 3, parameter N = 5) (
             sum <= sum + s_data;
             ones <= sum % 10;
             tens <= sum / 10;
-//            m_data[0] <= convert_to_7segment(ones);
-//            m_data[1] <= convert_to_7segment(tens);
+            if(m_ready)begin
+            m_data[0] <= convert_to_7segment(ones);
+            m_data[1] <= convert_to_7segment(tens);
+            end
             count <= count + 1;
         end else if (state == OUTPUT) begin
             sum <= 0; // Maintain sum value during conversion
             count <= 0; // Reset count for next accumulation
+//            s_valid <=0; 
+            s_ready <=0;
+
         end
     end
 
-//    // Convert sum to Seven Segment format
-//    always_ff @(posedge clk or negedge rstn) begin
-//        if (!rstn) begin
-//            ones <= 0;
-//            tens <= 0;
-//        end else if (state == CONVERT) begin
-//            ones <= sum % 10;
-//            tens <= sum / 10;
-//        end
-//    end
 
-    // Output Seven Segment Data
-    always_ff @(posedge clk or negedge rstn) begin
-        if (!rstn) begin
-            m_data[0] <= 0;
-            m_data[1] <= 0;
-        end else if (state == OUTPUT) begin
-            m_data[0] <= convert_to_7segment(ones);
-            m_data[1] <= convert_to_7segment(tens);
-        end
-    end
+   always_ff @(posedge clk or negedge rstn) begin
+       if (!rstn) begin
+           sum <= 0;
+           count <= 0;
+       end else if (state == IDLE) begin
+            count <=0;
+            sum <=0;
+//            s_valid <=0;
+            s_ready <=1;
+            m_valid <=0;
+//            m_ready <=0;
+       end
+   end
+
+
 
     // AXI Stream Handshaking
     assign s_ready = (state == IDLE) || (state == ACCUMULATE);
-    assign m_valid = (state == OUTPUT);
+    assign s_valid = ~(m_valid && ~(m_ready));
+    assign m_valid = (state == OUTPUT || count == (N));
 
     // Function to convert digit to 7-segment encoding
     function [6:0] convert_to_7segment;

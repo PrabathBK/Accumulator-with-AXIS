@@ -18,10 +18,14 @@
   <File Type="BITSTR-MMI" Name="count_sum.mmi"/>
   <File Type="ROUTE-METHODOLOGY-DRC" Name="count_sum_methodology_drc_routed.rpt"/>
   <File Type="BITSTR-SYSDEF" Name="count_sum.sysdef"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="count_sum_methodology_drc_routed.pb"/>
   <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
   <File Type="BITSTR-LTX" Name="count_sum.ltx"/>
+  <File Type="BOOT-PDI-FILE" Name="count_sum_boot.pdi"/>
   <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <File Type="NPI_FILE" Name="count_sum.npi"/>
   <File Type="OPT-DRC" Name="count_sum_drc_opted.rpt"/>
+  <File Type="RBD_FILE" Name="count_sum.rbd"/>
   <File Type="OPT-HWDEF" Name="count_sum.hwdef"/>
   <File Type="PLACE-IO" Name="count_sum_io_placed.rpt"/>
   <File Type="PLACE-UTIL" Name="count_sum_utilization_placed.rpt"/>
@@ -55,17 +59,13 @@
   <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="count_sum_timing_summary_postroute_physopted.rpx"/>
   <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="count_sum_bus_skew_postroute_physopted.rpt"/>
   <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="count_sum_bus_skew_postroute_physopted.rpx"/>
-  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="count_sum_methodology_drc_routed.pb"/>
   <File Type="ROUTE-DRC-RPX" Name="count_sum_drc_routed.rpx"/>
   <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="count_sum_methodology_drc_routed.rpx"/>
   <File Type="PDI-FILE" Name="count_sum.pdi"/>
-  <File Type="BOOT-PDI-FILE" Name="count_sum_boot.pdi"/>
   <File Type="PL-PDI-FILE" Name="count_sum_pld.pdi"/>
   <File Type="RCFI_FILE" Name="count_sum.rcfi"/>
   <File Type="CFI_FILE" Name="count_sum.cfi"/>
   <File Type="RNPI_FILE" Name="count_sum.rnpi"/>
-  <File Type="NPI_FILE" Name="count_sum.npi"/>
-  <File Type="RBD_FILE" Name="count_sum.rbd"/>
   <File Type="ROUTE-RQS" Name="count_sum_routed.rqs"/>
   <File Type="POSTROUTE-PHYSOPT-RQS" Name="count_sum_postroute_physopted.rqs"/>
   <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>

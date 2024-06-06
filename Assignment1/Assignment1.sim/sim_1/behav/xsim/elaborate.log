@@ -5,7 +5,9 @@ Running: C:/Xilinx/Vivado/2023.2/bin/unwrapped/win64.o/xelab.exe --incr --debug 
 Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
-WARNING: [VRFC 10-3823] variable 's_ready' might have multiple concurrent drivers [D:/DVCON/VHDL/Assignment/src/count_sum_tb.sv:21]
+WARNING: [VRFC 10-3823] variable 'm_valid' might have multiple concurrent drivers [D:/DVCON/VHDL/Assignment/src/count_sum_tb.sv:21]
+WARNING: [VRFC 10-3823] variable 's_ready' might have multiple concurrent drivers [D:/DVCON/VHDL/Assignment/src/count_sum.sv:98]
+WARNING: [VRFC 10-3823] variable 'm_valid' might have multiple concurrent drivers [D:/DVCON/VHDL/Assignment/src/count_sum.sv:100]
 Completed static elaboration
 Starting simulation data flow analysis
 WARNING: [XSIM 43-4099] "D:/DVCON/VHDL/Assignment/src/count_sum.sv" Line 1. Module count_sum doesn't have a timescale but at least one module in design has a timescale.
