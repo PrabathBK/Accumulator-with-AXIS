@@ -33,4 +33,28 @@ always_ff @( posedge clk  ) //when reset the count =0 then we do not need extra 
     else                sum <= sum + s_data; //Unsigned addition
 
 
+//Display parts
+logic [$clog2(10)-1:0] ones,tens;
+assign ones = sum %10;
+assign tens = sum /10;
+
+//seven segmnent display
+//   size of each           No of values(arrays) or Number of rows in the table(Address)
+logic [7-1:0] seven_segment_LUT [0:9] = '{
+    //gfe_dcba
+    7'b011_1111, //0
+    7'b010_0110, //1
+    7'b101_1011, //2
+    7'b100_1111, //3
+    7'b110_0110, //4
+    7'b110_1101, //5
+    7'b111_1101, //6
+    7'b000_0111, //7
+    7'b111_1111, //8
+    7'b110_1111, //9
+    
+};
+
+
+
 endmodule
