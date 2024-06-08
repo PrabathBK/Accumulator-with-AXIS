@@ -1,6 +1,10 @@
-module SSAccumulator #(parameter WIDTH=3, NO_OF_STEPS=10)(
+module SSAccumulator_axis #(parameter WIDTH=3, NO_OF_STEPS=10)(
     input logic clk,rstn,
+    input logic s_valid,
+    output logic s_ready,
     input logic [WIDTH-1:0] s_data,
+    input logic m_ready,
+    output logic m_valid,
     output logic [1:0][7-1:0] m_data
 
 );
@@ -15,8 +19,8 @@ assign count_next=(count== NO_OF_STEPS-1)?  0 : count+1; //Eqaul to always_comb 
     //         else count <= count + 1;
 
 always_ff @( posedge clk or negedge rstn )
-    if (~rstn)  count <='0;
-    else        count <= count_next;
+    if (~rstn)              count <='0;
+    else if (en & s_valid)  count <= count_next;
      
 
 //Accumulator
@@ -30,7 +34,7 @@ logic [W_SUM-1:0] sum;
 
 always_ff @( posedge clk  ) //when reset the count =0 then we do not need extra step to reset in both fliflpos
     if (count ==0) sum <= s_data;
-    else                sum <= sum + s_data; //Unsigned addition
+    else if (en)   sum <= sum + s_data; //Unsigned addition
 
 
 //Display parts
@@ -56,6 +60,35 @@ logic [7-1:0] seven_segment_LUT [0:9] = {
 };
 
 assign m_data ={ seven_segment_LUT[tens],seven_segment_LUT[ones]};
+
+/*
+count next  :   1,  2,  3,  0,  1
+count       :   0,  1,  2,  3,  0
+s_data      :   2,  1,  7,  2,
+sum         :   x,  2,  3,  10, 12
+m_valid     :                   1  //when count ==3 then next clock cycle m_valid should be high
+m_ready     :   1,  1,  1,  1,  0
+
+*/
+
+
+//In axis we have 2 outputs. m_valid and s_ready
+
+// 1. m_valid 
+always_ff @(posedge clk) begin
+    m_valid <= (count == N-1);
+
+end
+
+// 2. s_ready
+logic stop,en;
+assign stop= (m_valid && !m_ready);
+assign en = ~stop;
+
+assign s_ready = en;
+
+
+
 
 
 
