@@ -1,6 +1,6 @@
 # compile verilog/system verilog design source files
 sv xil_defaultlib  \
-"../../../../../src/SSAccumulator.sv" \
+"../../../../../src/SSAccumulator_axis.sv" \
 "../../../../../src/SSAccumulator_tb.sv" \
 
 # compile glbl module

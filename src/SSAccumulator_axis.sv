@@ -17,10 +17,13 @@ assign count_next=(count== NO_OF_STEPS-1)?  0 : count+1; //Eqaul to always_comb 
     // if (~rstn) count <='0;
     // else if(count== NO_OF_STEPS-1) count <= '0;
     //         else count <= count + 1;
+logic stop,en;
+assign stop= (m_valid && !m_ready)? 1:0;
+assign en = ~stop;
 
 always_ff @( posedge clk or negedge rstn )
-    if (~rstn)              count <='0;
-    else if (en & s_valid)  count <= count_next;
+    if (~rstn)                  count <='0;
+    else if (en && s_valid)     count <= count_next;
      
 
 //Accumulator
@@ -33,8 +36,9 @@ logic [W_SUM-1:0] sum;
 //     else                sum <= sum + s_data; //Both are same and correct
 
 always_ff @( posedge clk  ) //when reset the count =0 then we do not need extra step to reset in both fliflpos
-    if (count ==0) sum <= s_data;
-    else if (en)   sum <= sum + s_data; //Unsigned addition
+if (en)
+    if      (count ==0)   sum <= s_data;
+    else if (s_valid)     sum <= sum + s_data; //Unsigned addition
 
 
 //Display parts
@@ -75,16 +79,13 @@ m_ready     :   1,  1,  1,  1,  0
 //In axis we have 2 outputs. m_valid and s_ready
 
 // 1. m_valid 
-always_ff @(posedge clk) begin
-    m_valid <= (count == N-1);
+always_ff @(posedge clk or negedge rstn) begin
+    if      (~rstn              )   m_valid <= 0;
+    else if (m_ready || !m_valid)   m_valid <= (count == NO_OF_STEPS -1);
 
 end
 
 // 2. s_ready
-logic stop,en;
-assign stop= (m_valid && !m_ready);
-assign en = ~stop;
-
 assign s_ready = en;
 
 

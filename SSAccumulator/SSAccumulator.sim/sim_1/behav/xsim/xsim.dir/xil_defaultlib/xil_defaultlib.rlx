@@ -4,4 +4,5 @@ Oct 13 2023
 20:47:58
 D:/DVCON/VHDL/Assignment/SSAccumulator/SSAccumulator.sim/sim_1/behav/xsim/glbl.v,1697210495,verilog,,,,glbl,,uvm,,,,,,
 D:/DVCON/VHDL/Assignment/src/SSAccumulator.sv,1717861438,systemVerilog,,D:/DVCON/VHDL/Assignment/src/SSAccumulator_tb.sv,,SSAccumulator,,uvm,,,,,,
-D:/DVCON/VHDL/Assignment/src/SSAccumulator_tb.sv,1717863846,systemVerilog,,,,SSAccumulator_tb,,uvm,,,,,,
+D:/DVCON/VHDL/Assignment/src/SSAccumulator_axis.sv,1717869936,systemVerilog,,D:/DVCON/VHDL/Assignment/src/SSAccumulator_tb.sv,,SSAccumulator_axis,,uvm,,,,,,
+D:/DVCON/VHDL/Assignment/src/SSAccumulator_tb.sv,1717869426,systemVerilog,,,,SSAccumulator_axis_tb,,uvm,,,,,,
