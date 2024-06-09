@@ -1,4 +1,4 @@
-# Accumulator with AXIS Stream and Output Sum in 7 Segment display
+# Accumulator with AXI Stream and Output Sum on 7-Segment Display
 
 This project implements a digital system that reads a stream of numbers via an AXI Stream interface, calculates their sum, and displays the result on a pair of 7-segment displays.
 
