@@ -29,7 +29,7 @@ The system consists of the following main components:
 2. **Summation Logic**: Accumulates the sum of the input numbers.
 3. **7-Segment Converter**: Converts the sum into a format suitable for dual 7-segment displays.
 
-![System Diagram](path/to/your/image.png)
+![System Diagram](https://github.com/PrabathBK/Accumulator-with-AXIS/blob/main/System_Diagram.png?raw=true)
 
 ## AXI Stream Interface
 
